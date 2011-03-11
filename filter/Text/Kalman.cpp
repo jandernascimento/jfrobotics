@@ -10,8 +10,18 @@ r=init_r;
 }
 
 void Kalman::prediction(int a) {
+
+mean=1*mean+1*a;
+std=1*std*1+q;
+
 }
 
 void Kalman::estimation(int o) {
+
+k=(1*std*1)/(1*std*1+r);
+
+mean=mean+k*(o-1*mean);
+std=(1-k*1)*std;
+
 }
 

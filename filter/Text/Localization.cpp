@@ -12,10 +12,10 @@ int main(int argc, char* argv[]){
  	 dataObj.printLaserData();//print the current laser data on the terminal window
 
 	 // Initialization of Kalman Filter
-	 float init_x;
-	 float init_std;
-	 float init_q;
-	 float init_r;
+	 float init_x=0;
+	 float init_std=0;
+	 float init_q=1;
+	 float init_r=5;
 	 Kalman x(init_x, init_std, init_q, init_r);
     std::cout << " mean(I) = " << x.mean << " std(I) = " << x.std << std::endl << std::endl;
     /*Displaying the dataset (each sliding window; each frame)*/
