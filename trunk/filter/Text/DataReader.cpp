@@ -92,9 +92,25 @@ DataReader::~DataReader(){
 }
 
 int DataReader::initBackground(){
+
+	for(int i=0; i < BN; i++)
+		background[i]=dataLaserR[i];
+
+
 }
 
 int DataReader::detectMotion(int threshold) {
+
+	for(int i=0; i < BN; i++){
+		float diff=background[i]-dataLaserR[i];
+		if(diff>0 && diff>threshold){
+			detection[i]=1;
+		}
+		else 
+			detection[i]=0;
+	}
+
+
 }
 
 int DataReader::printMotion() {
@@ -114,4 +130,7 @@ int DataReader::printMotion() {
 }
 
 int DataReader::formObject() {
+
+
+
 }
