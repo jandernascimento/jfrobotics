@@ -13,7 +13,7 @@ int main(int argc, char* argv[]){
 
  	// read the first data to determine the background
 	dataObj.readData();//read the next laser data
-   dataObj.initBackground();//define the background
+   	dataObj.initBackground();//define the background
     
 	// Initialization of Kalman Filter
 	// read the second data
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
  	dataObj.printLaserData();//print the current laser data on the terminal window
 
 	//detection of motion
-	int threshold;
+	int threshold=2;
 	dataObj.detectMotion(threshold);
 	dataObj.printMotion();
   	dataObj.formObject();
