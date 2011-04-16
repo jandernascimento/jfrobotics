@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
 	dataObj.displayLaserData();//display the current laser data on the graphical window
 
 	//detection of motion
-	int threshold;
+	int threshold=2;
 	dataObj.detectMotion(threshold);
 	dataObj.printMotion();
 	dataObj.displayMotion();
