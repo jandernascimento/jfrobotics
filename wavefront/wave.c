@@ -338,10 +338,12 @@ int main(){
 
 	//display navigation array
 	printf("Navigation:\n");
+	//print the workspace matrix
 	printfunctionmatrix(); 
 	printf("Result of the Shortest search:\n");
-	//Fill the shortestpath matrix
+	//fill the shortestpath matrix to decide which track take
 	fillshortestpath(sx,sy);
+	//print the navigation matrix
 	printnavigationmatrix(); 
 
 	return 1;
