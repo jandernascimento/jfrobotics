@@ -1,5 +1,14 @@
 \documentclass{article}
+\setlength{\parskip}{2.0mm}
 
+\usepackage{listings}
+\lstset{
+breaklines=true,
+basicstyle=\footnotesize,
+tabsize=2
+}
+
+\usepackage{a4wide}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{graphicx}
@@ -22,8 +31,41 @@
 \section{Wavefront}
 
 
-\section{Djikistra Algorithm}
+\section{Wavefront Algorithm}
 
+The algortihm we are using to find the shortest path from the start
+position to the goal position is based on the classical Dijkstra's
+algorithm. The cells of the workspace grid are the vertices of the
+corresponding graph and each cell has maximum 4 neighbors.
+
+Given the start position we compute the path length to all other cells
+of the workspace. Then, the goal position is taken and if the path from
+start to goal exists, the shortest one is returned.
+
+To calculate the path length from the given cell to all others we have
+to maintain an additional array \emph{visited[][]}. It keeps track of
+those cells for which the shortest path has been already computed.  A
+\emph{navigation[][]} array stores the distance from the start position for
+each cell.
+
+The main algorithm is thus the following:
+
+\begin{lstlisting}
+visited[start_x][start_y] = 1;
+navigation[start_x][start_y] = 0;
+for each neighbor of the start position
+  put navigation[][] value to 0 + 1;
+for each cell in the grid
+  current = unvisited cell with the smallest navigation value;
+  nav_value = navigation[current_x][current_y];
+  mark it as visited;
+  for each neigbor of this cell
+    if (navigation > nav_value)
+      navigation = nav_value + 1;
+\end{lstlisting}
+
+
+\dots\dots path finding\dots\dots
 
 \section{Specification}
 
