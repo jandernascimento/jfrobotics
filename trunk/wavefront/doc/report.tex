@@ -48,6 +48,7 @@ each cell.
 The main algorithm is thus the following:
 
 \begin{lstlisting}[language=C]
+...
 visited[start_x][start_y] = 1;
 navigation[start_x][start_y] = 0;
 for each neighbor of the start position
@@ -59,14 +60,14 @@ for each cell in the grid
   for each neighbor of this cell
     if (navigation > nav_value)
       navigation = nav_value + 1;
+...
 \end{lstlisting}
-
 
 \section{Shortest path selection}
 
 After apply the navigation function, we have a connected graph in which all the nodes receives the value that represents the distance between itself and the goal. Thus, as long as the goal do not change, the navigation function result stays the same.
  
-The idea behind the the shortest path selection can be represented in the Equations \ref{eq:neighbor} and \ref{eq:path}. Where given a $x$ and $y$ (which we call the start position) we navigate through the graph always selecting in each node the shortest values among the neighbors\ref{eq:path}.
+The idea behind the the shortest path selection can be represented in the Equations \ref{eq:neighbor} and \ref{eq:path}. Where given a $x$ and $y$ (which we call the start position) we navigate through the graph always selecting in each node the shortest values among the neighbors (Equation \ref{eq:path}).
 
 Then we perform the same operation in this selected node until the value reached is 0(which represents the cost of our goal).
  
@@ -87,9 +88,9 @@ The workspace dimension is coded with a 5x6 matrix, which represents the workspa
 
 As the workspace is statically written inside the code, it is not possible to change the workspace without re-compile the code. Although is easy to compile the application.
 
-\section{How to Compile+Run}
+\section{How to Compile \& Run}
 
-To compile the application simply type {\it make} and then run the application, typing \dots \emph{wave}.
+To compile the application simply type {\it make} and then run the application.
 
 The code is also available at the address \url{https://code.google.com/p/jfrobotics/source/browse/trunk/wavefront/}.
 
