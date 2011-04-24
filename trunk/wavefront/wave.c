@@ -157,7 +157,7 @@ void fillshortestpath(int x,int y){
 
 	//check wheter the requested coordinates are in a wall (somewhere where the robot cannot be)
 	if(workspace[x][y]==1){
-		fprintf(stderr,"ERROR! You cannot start from there buddy. This is a wall.\n");
+		fprintf(stderr,"ERROR! You cannot start from there buddy. This is an obstacle.\n");
 		exit(1);
 	}
 
