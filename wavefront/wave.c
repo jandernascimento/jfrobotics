@@ -49,7 +49,22 @@ int visited[ROWS][COLS]={
 	{0,0,0,0,0,0},
 };
 
-void printmatrix(int **matrix){
+void printworkspacematrix(void){
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++)
+			if(workspace[i][j]==1){
+				printf("\e[37;41m %02d \e[m",workspace[i][j]);
+			}else{
+				printf("\e[37;44m %02d \e[m",workspace[i][j]);
+
+			}
+		//printf("%d ",workspace[i][j]);
+		printf("\n");
+	}
+}
+
+//print a colored matrix according to the values
+void printnavigationmatrix(void){
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLS; j++)
 			if(navigation[i][j]==-1){
@@ -66,19 +81,35 @@ void printmatrix(int **matrix){
 	}
 }
 
+void printfunctionmatrix(void){
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++)
+			if(navigation[i][j]==-1){
+				printf("\e[37;41m %02d \e[m",navigation[i][j]);
+			}else{
+				printf("\e[37;44m %02d \e[m",navigation[i][j]);
+
+			}
+		//printf("%d ",navigation[i][j]);
+		printf("\n");
+	}
+}
+
 int *getmin(int x, int y){
-
-	shortestpath[x][y]=1;
-
+  	//the starting point is a path, so should be marked as one
+        shortestpath[x][y]=1;
+	//these are the alternatives exits from a single spot (east,west,south or north).
 	int possibilities[4][2]={
 		{x,y+1},
 		{x,y-1},
 		{x+1,y},
 		{x-1,y},
 	};
-
+	//index of the possibility to be tested
 	int index=0;
-	int minval=pow(2,6),minx=-1,miny=-1;
+	
+	//the minimum value is assigned for the maximum possible value for an integer(which is 4 bytes), so the first value of the reading become the minimum
+	int minval=pow(2,8*4),minx=-1,miny=-1;
 
 	do {
 		int x=possibilities[index][0];
@@ -86,6 +117,7 @@ int *getmin(int x, int y){
 
 		//printf("testing %d,%d value %d\n ",x,y,navigation[x][y]);
 
+		//if is a valid coordinate and the size is minimum, compared with the other possibilities.
 		if(
 				x>=0 && x<ROWS &&
 				y>=0 && y<COLS &&
@@ -96,14 +128,15 @@ int *getmin(int x, int y){
 			minx=x;
 			miny=y;
 		}
-
+		//go for the next possibility
 		index++;
+		//just for possibilities
 	}while (index<4);
-
+	//create an array to return the choosen coordinate
 	int *val=(int *)malloc(sizeof(int)*2);
 	val[0]=minx;
 	val[1]=miny;
-
+	//if found a minimum path, means that there is a path from the start to the goal
 	if(minx!=-1){
 		shortestpath[minx][miny]=1;	
 	}
@@ -113,34 +146,33 @@ int *getmin(int x, int y){
 
 }
 
+//Fill up the shortest path matrix, which stores the shortest path for a given workspace
 void fillshortestpath(int x,int y){
 
-	//printmatrix(navigation);
-
+	//check whether the requested coordinates are outside the matrix dimension
 	if(!(x<ROWS&&y<COLS)){
 		fprintf(stderr,"ERROR! Your spot is not into the matrix boundaries buddy\n");
 		exit(1);
 	}
 
-	if(navigation[x][y]==-1){
+	//check wheter the requested coordinates are in a wall (somewhere where the robot cannot be)
+	if(workspace[x][y]==1){
 		fprintf(stderr,"ERROR! You cannot start from there buddy. This is a wall.\n");
 		exit(1);
 	}
 
+	//runs through all individual steps (shortest individual cell)
 	do {
-
+		//given the x,y spot, returns the shortest exist (north,south,east or west)
 		int *coord=getmin(x,y);
-
 		x=coord[0];
 		y=coord[1];
-
 		free(coord);
-
 		//fprintf(stderr,"min (%d,%d)..value %d\n",x,y,navigation[x][y]);
-
 	}while(navigation[x][y]!=-1&&navigation[x][y]!=0);
 
-	if(navigation[x][y]==-1){
+	//check is any path was found from the start to the goal
+	if(x==-1||y==-1){
 		fprintf(stderr,"FAIL! No path, sorry buddy.\n");
 		exit(1);
 	}
@@ -206,16 +238,21 @@ int main(){
 
 	int x,y,sx,sy;
 
-	printf("Welcome!\nChoose the goal:\nx = ");
+	printf("Welcome to pathfinder\n\n");
+
+	printf("Your Workspace:\n");
+	printworkspacematrix();
+
+	printf("Choose the goal:\nx? ");
 	scanf("%d",&x);
-	printf("y = ");
+	printf("y? ");
 	scanf("%d",&y);
 	printf("\n");
 
 
-	printf("Choose the start:\nx?([0,%d])",ROWS-1);
+	printf("Choose the start:\nx?");
 	scanf("%d",&sx);
-	printf("y?([0,%d])",COLS-1);
+	printf("y?");
 	scanf("%d",&sy);
 	printf("\n");
 
@@ -296,11 +333,12 @@ int main(){
 	}		
 
 	//display navigation array
-	printf("Workspace + Navigation:\n");
-	printmatrix(navigation); 
-	printf("Shortest(or one of the shortest) path:\n");
+	printf("Navigation:\n");
+	printfunctionmatrix(); 
+	printf("Result of the Shortest search:\n");
+	//Fill the shortestpath matrix
 	fillshortestpath(sx,sy);
-	printmatrix(navigation); 
+	printnavigationmatrix(); 
 
 	return 1;
 }
