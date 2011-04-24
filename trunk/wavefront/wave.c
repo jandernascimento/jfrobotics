@@ -7,7 +7,7 @@
 
 int workspace[ROWS][COLS]={
 	{0,0,0,1,0,0},
-	{0,0,0,0,0,0},
+	{0,0,0,1,0,0},
 	{0,0,1,1,1,0},
 	{0,0,0,1,0,0},
 	{0,0,0,1,0,0},
@@ -238,8 +238,12 @@ int main(){
 
 	int x,y,sx,sy;
 
-	printf("Welcome to pathfinder\n\n");
+	printf("\n\nWelcome to pathfinder\n\n");
 
+	printf("Instruction:\n");
+	printf("x means the line number, and starts from 0 until %i:\n",ROWS-1);
+	printf("y means the column number, and starts from 0 until %i:\n\n",COLS-1);
+	
 	printf("Your Workspace:\n");
 	printworkspacematrix();
 
