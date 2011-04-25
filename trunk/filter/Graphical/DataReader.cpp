@@ -168,15 +168,46 @@ int DataReader::initBackground(){
 }
 
 int DataReader::detectMotion(int threshold) {
+	
+
+	xmin=99999999999999;
+	ymin=99999999999999;
+
+	xmax=-1;
+	ymax=-1;
+
+
 
 	for(int i=0; i < BN; i++){
-		if(dataLaserR[i]<xmin) xmin=dataLaserR[i];
-		
-		if(dataLaserR[i]>xmax) xmax=dataLaserR[i];
-
+	
+		float x1,y1,x2,y2;
 		float diff=background[i]-dataLaserR[i];
 		if(diff>0 && diff>threshold){
 			detection[i]=1;
+		
+			if(
+				(dataLaserX[i]==0 || dataLaserY[i]==0)
+				||(dataLaserX[i]==217 && dataLaserY[i]==0)
+			) 
+				continue;			
+	
+			if(dataLaserX[i]<=xmin){ 
+				xmin=dataLaserX[i];
+			}
+			
+			if(dataLaserX[i]>=xmax){
+				 xmax=dataLaserX[i];
+			}
+			
+			if(dataLaserY[i]<=ymin){ 
+				ymin=dataLaserY[i];
+			}
+			
+			if(dataLaserY[i]>=ymax){
+				 ymax=dataLaserY[i];
+			}
+
+	
 		}else 
 			detection[i]=0;
 	}
@@ -205,14 +236,32 @@ int DataReader::displayMotion() {
 		if (detection[i]) {
 		   float x1,y1,x2,y2;
     
-    		transformCoordinates(0,0,&x1,&y1);
+    		   transformCoordinates(0,0,&x1,&y1);
 		   transformCoordinates(dataLaserX[i],dataLaserY[i],&x2,&y2);
 		   cvLine(image, cvPoint(x1,y1), cvPoint(x2,y2), CV_RGB(217,217,217),1,4);
+
+
 		}
+
  
+        
+	
 	cvShowImage("myWindow", image);
 	return NOERROR;
 
 }
+
 int DataReader::formObject() {
+
+	float x1,y1,x2,y2;
+
+	printf("----> PRIMITIVE p1(%f,%f) p2(%f,%f)\n",xmin,ymin,xmax,ymax);
+    	transformCoordinates(xmin,ymin,&x1,&y1);
+    	transformCoordinates(xmax,ymax,&x2,&y2);
+
+	printf("----> COOD p1(%f,%f) p2(%f,%f)\n",x1,y1,x2,y2);
+
+	drawRectangle(x1,y1, x2, y2, cvScalar(2));
+
+
 }

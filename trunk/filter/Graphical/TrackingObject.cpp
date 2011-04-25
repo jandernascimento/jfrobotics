@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
 	dataObj.displayLaserData();//display the current laser data on the graphical window
 
 	//detection of motion
-	int threshold=2;
+	int threshold=7;
 	dataObj.detectMotion(threshold);
 	dataObj.printMotion();
 	dataObj.displayMotion();
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]){
 		std::cout << "mean(E) = " << y.mean << " std(E) = " << y.std << std::endl << std::endl;
 
 	
-        	dataObj.drawRectangle(10, 10, 20, 20, cvScalar(2));
+        	//dataObj.drawRectangle(10, 10, 20, 20, cvScalar(2));
 
 		/*delay*/
 		key=cvWaitKey(0);
