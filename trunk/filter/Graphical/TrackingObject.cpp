@@ -62,6 +62,9 @@ int main(int argc, char* argv[]){
 		y.estimation(o);
 		std::cout << "mean(E) = " << y.mean << " std(E) = " << y.std << std::endl << std::endl;
 
+	
+        	dataObj.drawRectangle(10, 10, 20, 20, cvScalar(2));
+
 		/*delay*/
 		key=cvWaitKey(0);
 	}
