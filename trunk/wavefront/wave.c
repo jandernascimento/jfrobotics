@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 #define ROWS 5
 #define COLS 6
@@ -9,7 +10,7 @@ int workspace[ROWS][COLS]={
 	{0,0,0,1,0,0},
 	{0,0,0,1,0,0},
 	{0,0,1,1,1,0},
-	{0,0,0,0,0,0},
+	{0,0,0,1,0,0},
 	{0,0,0,1,0,0},
 };
 
@@ -20,17 +21,6 @@ int navigation[ROWS][COLS]={
 	{-1,-1,-1,-1,-1,-1},
 	{-1,-1,-1,-1,-1,-1},
 };
-
-
-/*
-   int navigation[ROWS][COLS]={
-   {0,1,2,-1,6,7},
-   {1,2,3,4,5,6},
-   {2,3,-1,-1,-1,7},
-   {3,4,5,-1,9,8},
-   {4,5,6,-1,10,9},
-   };
- */
 
 int shortestpath[ROWS][COLS]={
 	{0,0,0,0,0,0},
@@ -96,10 +86,12 @@ void printfunctionmatrix(void){
 }
 
 int *getmin(int x, int y){
-  	//the starting point is a path, so should be marked as one
-        shortestpath[x][y]=1;
-	//these are the alternatives exits from a single spot (east,west,south or north).
-	int possibilities[4][2]={
+  //the starting point is a path, so should be marked as one
+  shortestpath[x][y]=1;
+  
+  //these are 4 alternatives from a single spot (east,west,south
+  //or north).
+  int possibilities[4][2]={
 		{x,y+1},
 		{x,y-1},
 		{x+1,y},
@@ -151,7 +143,7 @@ void fillshortestpath(int x,int y){
 
 	//check whether the requested coordinates are outside the matrix dimension
 	if(!(x<ROWS&&y<COLS)){
-		fprintf(stderr,"ERROR! Your spot is not into the matrix boundaries buddy\n");
+		fprintf(stderr,"ERROR! Your spot is not inside the matrix boundaries buddy\n");
 		exit(1);
 	}
 
@@ -247,22 +239,22 @@ int main(){
 	printf("Your Workspace:\n");
 	printworkspacematrix();
 
-	printf("Choose the goal:\nx? ");
+	printf("Choose the goal:\nx = ");
 	scanf("%d",&x);
-	printf("y? ");
+	printf("y = ");
 	scanf("%d",&y);
 	printf("\n");
 
 
-	printf("Choose the start:\nx?");
+	printf("Choose the start:\nx = ");
 	scanf("%d",&sx);
-	printf("y?");
+	printf("y = ");
 	scanf("%d",&sy);
 	printf("\n");
 
 
 	if (workspace[x][y] == 1) {
-		printf("illegal start position\n");
+		printf("illegal goal position\n");
 		return 0;
 	} 
 	//navigation of the start point is 0
@@ -283,7 +275,7 @@ int main(){
 			navigation[x][y-1]=1;	
 	}
 	if((y+1)<COLS){
-		if (workspace[x][y+1]!=1)
+  if (workspace[x][y+1]!=1)
 			navigation[x][y+1]=1;	
 	}
 
