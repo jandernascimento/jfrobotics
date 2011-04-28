@@ -82,5 +82,8 @@ class DataReader{
 			int printMotion();
   			int displayMotion();
 			int formObject();
-        
+       
+	void filterMotion1();
+	void filterMotion2();
+ 
 };

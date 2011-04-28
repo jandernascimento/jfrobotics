@@ -171,52 +171,10 @@ int DataReader::initBackground(){
 
 }
 
-/**
- *** After establish a threadhold, it will only be considered as a motion if the difference between the readin o and o' is bigger than this threshhold
- **/
-int DataReader::detectMotion(int threshold) {
 
+void DataReader::filterMotion2(){
 
-	xmin=99999999999999;
-	ymin=99999999999999;
-
-	xmax=-1;
-	ymax=-1;
-
-	int cluster_counter_last=0;
-
-	int cluster_current=0;
-
-	for(int i=0; i < BN; i++){
-
-		float x1,y1,x2,y2;
-		float diff=background[i]-dataLaserR[i];
-		if(diff>0 && diff>threshold){
-			detection[i]=1;
-
-			if(dataLaserX[i]!=0 && dataLaserY[i]!=0){
-
-				if(dataLaserX[i]<=xmin){ 
-					xmin=dataLaserX[i];
-				}
-
-				if(dataLaserX[i]>=xmax){
-					xmax=dataLaserX[i];
-				}
-
-				if(dataLaserY[i]<=ymin){ 
-					ymin=dataLaserY[i];
-				}
-
-				if(dataLaserY[i]>=ymax){
-					ymax=dataLaserY[i];
-				}
-
-				printf("----> PRIMITIVE p1(%d,%d) p2(%d,%d)\n",xmin,ymin,xmax,ymax);
-			}
-		}else 
-			detection[i]=0;
-	}
+	int threshold_cluster=10;
 
 	int last=0;
 	int count=0;
@@ -236,7 +194,7 @@ int DataReader::detectMotion(int threshold) {
 	for(int i=0; i < BN; i++){
 
 		if(detection[i] && dataLaserR[i]>10){
-			if((i-last)>4){
+			if((i-last)>threshold_cluster){
 
 				int cluster_size=last-first;
 
@@ -265,6 +223,73 @@ int DataReader::detectMotion(int threshold) {
 	
 	}
 
+}
+
+void DataReader::filterMotion1(){
+	int cluster_counter_last=0;
+
+	int cluster_current=0;
+
+
+	xmin=99999999999999;
+	ymin=99999999999999;
+
+	xmax=-1;
+	ymax=-1;
+
+	for(int i=0; i < BN; i++){
+
+		float x1,y1,x2,y2;
+		float diff=background[i]-dataLaserR[i];
+		if(detection[i]){
+
+			if(dataLaserX[i]!=0 && dataLaserY[i]!=0){
+
+				if(dataLaserX[i]<=xmin){ 
+					xmin=dataLaserX[i];
+				}
+
+				if(dataLaserX[i]>=xmax){
+					xmax=dataLaserX[i];
+				}
+
+				if(dataLaserY[i]<=ymin){ 
+					ymin=dataLaserY[i];
+				}
+
+				if(dataLaserY[i]>=ymax){
+					ymax=dataLaserY[i];
+				}
+
+				printf("----> PRIMITIVE p1(%d,%d) p2(%d,%d)\n",xmin,ymin,xmax,ymax);
+			}
+		}else 
+			detection[i]=0;
+	}
+
+}
+
+/**
+ *** After establish a threadhold, it will only be considered as a motion if the difference between the readin o and o' is bigger than this threshhold
+ **/
+int DataReader::detectMotion(int threshold) {
+
+	for(int i=0; i < BN; i++){
+
+		float x1,y1,x2,y2;
+		float diff=background[i]-dataLaserR[i];
+		if(diff>0 && diff>threshold)
+			detection[i]=1;
+		else 
+			detection[i]=0;
+	}
+
+	//Filtering motion to detect point for the bounding box
+
+	/** Looks for the minimum x and y in the laser reading **/
+	//filterMotion1();
+	/** Looks for the largest laser cluster **/
+	filterMotion2();
 }
 
 int DataReader::printMotion() {
