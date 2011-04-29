@@ -97,17 +97,21 @@ int DataReader::displayLaserData(){
 
 int DataReader::printLaserData(){
 
+  std::cout << "printLaserData" << std::endl;
+
 	for (int j=0;j<BN;j++)
 		std::cout << "beam " << j << ", "
-			<< dataLaserR[j] << " degre, " 
+			<< dataLaserR[j] << " degree, " 
 			<< dataLaser[j] << "cms, X=" 
 			<< dataLaserX[j] << ", Y=" 
 			<< dataLaserY[j] << std::endl;
 }
 int DataReader::printLaserData(int beam){
 
+  std::cout << "printLaserData" << std::endl;
+
 	std::cout << "beam " << beam << ", "
-		<< dataLaserR[beam] << " degre, " 
+		<< dataLaserR[beam] << " degree, " 
 		<< dataLaser[beam] << "cms, X=" 
 		<< dataLaserX[beam] << ", Y=" 
 		<< dataLaserY[beam] << std::endl;
@@ -164,128 +168,80 @@ DataReader::~DataReader(){
  *** for detect motion in the next sensor readings.
  **/
 int DataReader::initBackground(){
-
-	for(int i=0; i < BN; i++)
-		background[i]=dataLaserR[i];
-
-
+  for (int i=0;i < BN; i++)
+    background[i] = dataLaserR[i];  
 }
 
-
-void DataReader::filterMotion2(){
-
-	int threshold_cluster=10;
-
-	int last=0;
-	int count=0;
-	int first=0;
-	int largest_size=0;
-
-	xmin=0;
-	ymin=0;
-
-	xmax=0;
-	ymax=0;
-
-	detection[723]=1;	
-
-	//Motion filtering based in cluster
-
-	for(int i=0; i < BN; i++){
-
-		if(detection[i] && dataLaserR[i]>10){
-			if((i-last)>threshold_cluster){
-
-				int cluster_size=last-first;
-
-				if(cluster_size>largest_size){ 
-
-
-					printf("cluster of %i, from %i to %i\n",cluster_size,first,last);
-
-					largest_size=cluster_size;
-					xmin=dataLaserX[first];
-					ymin=dataLaserY[first];
-					
-					xmax=dataLaserX[last];
-					ymax=dataLaserY[last];
-				}
-
-				count=0;
-				first=i;
-			}
-				count++;
-				last=i;
-			printf("counting %i\n",count);
-		}
-		
-		
-	
+float DataReader::detectMotion(int threshold) {
+  //detect motion for each beam
+  for (int i=0;i < BN; i++) {
+    //..taking into account an issue of determining false motion
+    //at the distance less than 1.0 from the sensor
+    if ((background[i] - dataLaserR[i]) > threshold &&
+        dataLaserX[i] > 1.0)
+      detection[i] = 1;
+    else
+      detection[i] = 0;
+  }
+ 
+ int counter = 0;
+ last_laser = 999;
+ printf("Starting..\n");
+  for (int i=0;i < BN; i++) {
+    if (detection[i] == 1) {
+      if (counter == 0) {
+        xmin = dataLaserX[i];
+        ymin = dataLaserY[i];
+        first_laser = i;
+      } 
+      
+      //to get rid off long rays after a detected object
+      if (dataLaserR[i]-dataLaserR[last_laser] > 30 &&
+          last_laser!=999)
+        continue;
+      //to get rid off long rays before a detected object
+      if (dataLaserR[i]-dataLaserR[last_laser] < -30 &&
+          last_laser!=999 && counter<4) {
+        counter = 0;
+        xmin = dataLaserX[i];
+        ymin = dataLaserY[i];
+        first_laser = i;
+      }
+      
+      counter++;
+      last_laser = i;
+    }
+    if (detection[i] == 0) {
+      if ( (counter > 3) && ( (i - last_laser) >= 30)) {
+        xmax = dataLaserX[last_laser];
+        ymax = dataLaserY[last_laser];
+        printf("Cluster found!\n");
+        printf("first laser = %d\n", first_laser);
+        printf("last laser = %d\n", last_laser);
+        break;
+      }
+      if ((i - last_laser) < 30) {
+        continue;
+      }
+      else {
+        counter = 0;
+      }
+    }
+  }
 	}
 
-}
+  //calculating the observation
+  double xt = (xmin < xmax) ? xmin : xmax;
+  double observ_x = ceil(abs(xmin-xmax)/2) + xt;
 
-void DataReader::filterMotion1(){
-	int cluster_counter_last=0;
+  double yt = (ymin < ymax) ? ymin : ymax;
+  double observ_y = ceil(abs(ymin-ymax)/2) + yt;
 
-	int cluster_current=0;
-
-
-	xmin=99999999999999;
-	ymin=99999999999999;
-
-	xmax=-1;
-	ymax=-1;
-
-	for(int i=0; i < BN; i++){
-
-		float x1,y1,x2,y2;
-		float diff=background[i]-dataLaserR[i];
-		if(detection[i]){
-
-			if(dataLaserX[i]!=0 && dataLaserY[i]!=0){
-
-				if(dataLaserX[i]<=xmin){ 
-					xmin=dataLaserX[i];
-				}
-
-				if(dataLaserX[i]>=xmax){
-					xmax=dataLaserX[i];
-				}
-
-				if(dataLaserY[i]<=ymin){ 
-					ymin=dataLaserY[i];
-				}
-
-				if(dataLaserY[i]>=ymax){
-					ymax=dataLaserY[i];
-				}
-
-				printf("----> PRIMITIVE p1(%d,%d) p2(%d,%d)\n",xmin,ymin,xmax,ymax);
-			}
-		}else 
-			detection[i]=0;
-	}
-
-}
-
-/**
- *** After establish a threadhold, it will only be considered as a motion if the difference between the readin o and o' is bigger than this threshhold
- **/
-int DataReader::detectMotion(int threshold) {
-
-	for(int i=0; i < BN; i++){
-
-		float x1,y1,x2,y2;
-		float diff=background[i]-dataLaserR[i];
-		if(diff>0 && diff>threshold)
-			detection[i]=1;
-		else 
-			detection[i]=0;
-	}
-
-	//Filtering motion to detect point for the bounding box
-
+  //the distance between (0.0) and observed person's position
+  float observ_laser = sqrt((observ_x-0)*(observ_x-0) + 
+      (observ_y-0)*(observ_y-0));
+  
+  return observ_laser;
 	/** Looks for the minimum x and y in the laser reading **/
 	//filterMotion1();
 	/** Looks for the largest laser cluster **/
@@ -311,29 +267,23 @@ int DataReader::displayMotion() {
 
 	for(int i=0; i < BN; i++)
 		if (detection[i]) {
-			float x1,y1,x2,y2;
-			transformCoordinates(0,0,&x1,&y1);
-			transformCoordinates(dataLaserX[i],dataLaserY[i],&x2,&y2);
-			cvLine(image, cvPoint(x1,y1), cvPoint(x2,y2), CV_RGB(217,217,217),1,4);
+		   float x1,y1,x2,y2;
+    
+    		transformCoordinates(0,0,&x1,&y1);
+		   transformCoordinates(dataLaserX[i],dataLaserY[i],&x2,&y2);
+		   cvLine(image, cvPoint(x1,y1), cvPoint(x2,y2), CV_RGB(217,217,217),1,4);
 		}
-
-
+ 
 	cvShowImage("myWindow", image);
 	return NOERROR;
 
 }
-
 int DataReader::formObject() {
 
-	float x1,y1,x2,y2;
-
-	printf("Boundbox p1(%f,%f) p2(%f,%f)\n",xmin,ymin,xmax,ymax);
-	printf("Boundbox CV coordinates p1(%f,%f) p2(%f,%f)\n",x1,y1,x2,y2);
-	transformCoordinates(xmin,ymin,&x1,&y1);
-	transformCoordinates(xmax,ymax,&x2,&y2);
-
-
-	drawRectangle(x1,y1, x2, y2, cvScalar(2));
-
+  float x1,y1,x2,y2;
+  
+  transformCoordinates(dataLaserX[first_laser],dataLaserY[first_laser],&x1,&y1);
+  transformCoordinates(dataLaserX[last_laser],dataLaserY[last_laser],&x2,&y2);
+  drawRectangle(x1,y1,x2,y2,cvScalar(2));
 
 }

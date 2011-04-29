@@ -9,7 +9,7 @@ int main(int argc, char* argv[]){
    DataReader dataObj(setName);
    int key;
     
-	float a;
+	float a = 3;
 
    /*Window initialization*/
    dataObj.initWindow();
@@ -23,32 +23,39 @@ int main(int argc, char* argv[]){
 	// Initialization of Kalman Filter
 	// read the second data
 	dataObj.readData();//read the next laser data
- 	dataObj.printLaserData();//print the current laser data on the terminal window
+ 	//dataObj.printLaserData();//print the current laser data on the terminal window
 	dataObj.displayLaserData();//display the current laser data on the graphical window
 
 	//detection of motion
-	int threshold=3;
+	int threshold = 15;
 	dataObj.detectMotion(threshold);
 	dataObj.printMotion();
 	dataObj.displayMotion();
   	dataObj.formObject();
 
-	float init_y;
-	float init_std;
-	float init_q;
-	float init_r;
+	float init_y = 16;
+	float init_std = 10;
+	float init_q = 4;
+	float init_r = 1;
 	Kalman y(init_y, init_std, init_q, init_r);
    std::cout << "mean(I) = " << y.mean << " std(I) = " << y.std << std::endl << std::endl;
+
+   int data_num = 1;
 
    /*Displaying the dataset (each sliding window; each
      frame)*/
 	while(dataObj.readData() == NOERROR) {
-		dataObj.printLaserData();//display the current laser data on the graphical window
-		dataObj.displayLaserData();//display the current laser data on the graphical window
+    
+    std::cout << "data_num = " << data_num++ << std::endl;
 
-		dataObj.detectMotion(threshold);
+    //dataObj.printLaserData();//display the current laser data on the
+    //graphical window
+    dataObj.displayLaserData();//display the current laser data on the
+    //graphical window
+
+		float o = dataObj.detectMotion(threshold);
 		dataObj.printMotion();
-  		dataObj.displayMotion();
+    dataObj.displayMotion();
 		dataObj.formObject();
 
 		// prediction phase
@@ -57,13 +64,9 @@ int main(int argc, char* argv[]){
 		std::cout << "mean(P) = " << y.mean << " std(P) = " << y.std << std::endl;
 
 		// estimation phase
-		float o;
 		std::cout << "observation = " << o << std::endl;
 		y.estimation(o);
 		std::cout << "mean(E) = " << y.mean << " std(E) = " << y.std << std::endl << std::endl;
-
-	
-        	//dataObj.drawRectangle(10, 10, 20, 20, cvScalar(2));
 
 		/*delay*/
 		key=cvWaitKey(0);

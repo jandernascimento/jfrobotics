@@ -1,5 +1,7 @@
 \documentclass{article}
+\setlength{\parskip}{2.0mm}
 
+%\usepackage{a4wide}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{graphicx}
@@ -12,29 +14,195 @@
 
 \begin{document}
 
-\title{Robotics - Localization and Prediction}
+\title{Robotics - Kalman Filter}
 
-\author{Asan Agibetov, 
-\and Jander Nascimento}
+\author{Oleg Iegorov}
 
 \maketitle
 
 \section{Localization of a mobile robot}
 
-\subsection{Estimating with Kalman filter}
-%Explain how kalman works and why it can be applied in the case of the robot
+The Kalman filter is used to predict the state of the robot at a particular
+moment of time \emph{t} knowing an estimated state at time \emph{t-1}
+and some additional information about the system. It is a recursive
+algorithm that uses prediction and estimation/correction routings as its core
+elements.
 
-\subsection{Testing data sets}
-%run in couple data sets and explain what is going on
-\emph{Q} and \emph{R} are respectively related with the confidence in the action and in the observation. This means that the values will converge to real values faster.
+\begin{figure}[H] \centering
+  \includegraphics[scale=0.3]{routings.png}
+\end{figure}
+
+The formulas that describe Kalman Filter are the following:
+
+\begin{equation} \label{eq:prediction}
+  Prediction\;:\; 
+  \left\{ 
+    \begin{array}{ c }
+      \mu^{-}_{t+1} = \mu_t + A_t \\
+      \Sigma^{-}_{t+1} = \Sigma_t + Q_t
+    \end{array}
+  \right.
+\end{equation}
+
+\begin{equation} \label{eq:kalman_gain}
+  Kalman\;gain\;:\; K_t = \frac{\Sigma^{-}_{t+1}}{\Sigma^{-}_{t+1} + R_t}
+\end{equation}
+
+\begin{equation} \label{eq:estimation}
+  Estimation\;:\; 
+  \left\{ 
+    \begin{array}{ c }
+      \mu_{t+1} = \mu^{-}_{t+1} + K_t(O_t - \mu^{-}_{t+1}) \\
+      \Sigma_{t+1} = (1 - K_t)\Sigma^{-}_{t+1}
+    \end{array}
+  \right.
+\end{equation}
+\\
+\begin{tabbing}
+\hspace{10mm}where \hspace{5mm} \= $\mu^{-}_{t+1}$ is an \emph{a priori} state estimation \\
+\> $\mu_{t+1}$ is an \emph{a posteriori} state estimation\\
+\> $A_t$ --- action at time t\\
+\> $Q_t$ --- noise associated with an action estimation\\
+\> $R_t$ --- noise associated with an observation estimation\\
+\> $O_t$ --- observation at time t
+\end{tabbing}
+
+These formulas were coded in the file Kalman.cpp
+
+The value for action $A_t$ from equation \ref{eq:prediction} was statically
+specified in \emph{Localization.cpp} to be equal 16 in all the
+experiments. The values for $Q_t$, $R_t$ and initial position and
+standard deviation were also specified in this file:
+
+\begin{lstlisting}
+float a = 16;
+// Initialization of Kalman Filter
+float init_q = 4.0;
+float init_r = 4.0;
+float init_x = 16;
+float init_std = 3;
+\end{lstlisting}
+
+As an observation $O_t$ at each timestep we take the value of a beam
+which is perpendicular to OY axis. As the total number of beams is 768
+the beam of interest is $\frac{768}{2}=384$th
+
+The tests were done on the data sets from \emph{DataSets/perfectcase/}
+and\\
+\emph{Datasets/changemotion/} directories.
+
+\begin{enumerate}
+  \item Perfect case\\
+    In the first data set the robot moves in one
+    direction with constant action 16. As we have statically
+    specified the same value of action, the predicted position quickly
+    converges to the observed one over time. After only 4 timesteps the
+    predicted value is almost equal to the observed value. The change of
+    any parameters of Kalman Filter does not change anything. This
+    happens because after several timesteps the predicted and observed
+    values are almost the same and there is no meaning to say if we are
+    more sure in actions (by decreasing $Q_t$) or in observations (by
+    decreasing $R_t$.
+    
+    In the second data set the robot again moves in one direction but
+    with constant action 30. As the value of action was statically
+    specified to be equal to 16, the predicted value does not converge
+    to the observed one without modifying the Kalman Filter parameters.
+    This happens because we are still equally sure (or equally unsure)
+    about both action and observation ($Q_t = R_t = 4.0$).
+    
+    To change this behavior we can decrease the value of $R_t$ to 1.0 which
+    means that we are more sure in observations than actions. This will
+    decrease the difference between predicted and observed values.
+    However, this difference will remain the same over time. This
+    happens because of the statically specified value of action, which
+    does not adapt. We still assume at each timestep that the action
+    performed by the robot equals 16.
+    
+  \item Change motion\\
+    With these data sets we can observe the change of direction in the
+    robot's movement. The situation here is very similar to the perfect
+    case in terms of 'trust' in actions or in observations. The
+    difference between the observed and predicted values increases
+    dramatically when the robot starts to move in the opposite
+    direction. The value of statically specified action is still 16 even
+    when the robot moves back to the wall. This fact prevents the
+    convergence between the observed and predicted values with or
+    without the Kalman filter parameters modification.
+    
+\end{enumerate}
+
+As we have seen during the experiments Kalman filter works very good
+when the specified action matches the actual action of the robot.
+However, the big limitation of the used model was the static
+specification of action. In practice we should adapt it through the
+timesteps to get the full power of the Kalman filter.
 
 \section{Detection and Tracking of a moving person}
 
-\subsection{Explain Kalman for DATMO}
-%explain how the kalman is used for tracking
+The problem of detection consists in comparison of obtained laser data
+with already stored initial data, and making a conclusion if there is a
+moving object and where. 
 
-\subsection{Testin data sets}
-%run in couple data sets and explain what is going on
+To solve this problem we store initial laser data in the
+\textbf{background[]} array. Then, each frame of laser data is compared
+to the background information. If for a particular beam 
+\begin{lstlisting}
+(background[i] - dataLaserR[i]) > threshold
+\end{lstlisting}
+then the motion is detected there, and we memorize the number of this
+beam in \textbf{detection[]} array. The \textbf{threshold} value is
+deterministic and was chosen to be equal to \textbf{15}.
+
+However, this technique is not sufficient to detect a moving object. Due
+to the laser's sensibility limitations, it is a common case to detect some
+motion when there is actually a wall or some static obstacle. So, to get
+rid of these falsely detected beams the following idea was
+applied (assuming that we have only one moving object, and this object
+is represented by a cluster of at least 4 consecutively detected beams).
+
+Each time we detect a beam with motion we increase a counter. If after a
+beam with detection[beam\#]=1 there are more then 30 beams with
+detection[]=0 and counter's value is less than 4, then we discard the
+counter. This means that the detection was wrong (Figure
+\ref{fig:wrong}). If, however, the
+counter is bigger than 4 and we detect 30 beams with 0 as a detection
+value --- this means that a moving object was found and we can stop
+object detection. The reason why we need to count 30 undetected beams is
+that in the most cases the sensor does not detect some beams in the
+middle of object's position (Figure \ref{fig:undetected}). Examples of such behaviors are shown below:
+
+\begin{figure}[H]
+		  \centering
+		  \subfloat[Wrongly detected
+      motion]{\includegraphics[width=0.4\textwidth]{problems.png}\label{fig:wrong}}
+		  \hspace{0.1cm}
+		  \subfloat[Undetected
+      motion]{\includegraphics[width=0.4\textwidth]{problems2.png}\label{fig:undetected}}
+      \hspace{0.1cm}
+		  \subfloat[Wrongly detected motion near an object]{\includegraphics[width=0.4\textwidth]{problems3.png}\label{fig:near}}
+		  \caption{Problems with object detection}
+		  \label{fig:problems}
+\end{figure}
+
+Additionally, the problem with wrongly detected motion near an
+actually moving object (Figure \ref{fig:near}) was solved.
+
+To determine the position of a moving object the bounding box was built
+as can be seen on the figure. The points which define this bounding box
+were taken as the coordinates of the first and the last beams of the
+detected beams cluster. As an actual \textbf{observation} we take a
+center of the bounding box.
+
+As the next step we provide this value of an observation as well as the
+value of an \textbf{action} to the Kalman filter. As the movement of an object is
+more unpredicted in 2D than in 1D, the statically defined action value
+was defined to be small. To emphasize the fact that we are more sure in
+observations than in actions, we define $R_t=1$ and $Q_t=4$.
+
+Given this, the Kalman filter produces relatively good results with an
+error of 4-10cm.
+
 
 \end{document}
 

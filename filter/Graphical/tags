@@ -1,0 +1,60 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BN	DataReader.hpp	8;"	d
+CC	Makefile	/^CC=g++$/;"	m
+DataReader	DataReader.cpp	/^DataReader::DataReader(std::string setName){$/;"	f	class:DataReader
+DataReader	DataReader.hpp	/^class DataReader{$/;"	c
+ENDDATASET	DataReader.hpp	13;"	d
+ERROR	DataReader.hpp	14;"	d
+FRAMESNUMBER	DataReader.hpp	10;"	d
+INCLUDE	Makefile	/^INCLUDE=\/usr\/include\/opencv$/;"	m
+Kalman	Kalman.cpp	/^Kalman::Kalman(float init_mean, float init_std, float init_q, float init_r) {$/;"	f	class:Kalman
+Kalman	Kalman.hpp	/^class Kalman{$/;"	c
+LIB	Makefile	/^LIB=\/usr\/local\/lib\/$/;"	m
+NOERROR	DataReader.hpp	12;"	d
+background	DataReader.hpp	/^			float background[BN]; \/\/ used to store the background$/;"	m	class:DataReader
+clearImage	DataReader.cpp	/^void DataReader::clearImage(){$/;"	f	class:DataReader
+dataLaser	DataReader.hpp	/^        float dataLaser[BN]; \/\/angle in degree$/;"	m	class:DataReader
+dataLaserR	DataReader.hpp	/^        float dataLaserR[BN]; \/\/range in centimeters$/;"	m	class:DataReader
+dataLaserX	DataReader.hpp	/^        float dataLaserX[BN]; \/\/position on X-axis$/;"	m	class:DataReader
+dataLaserY	DataReader.hpp	/^        float dataLaserY[BN]; \/\/position on Y-axis$/;"	m	class:DataReader
+dataSetName	DataReader.hpp	/^        std::string dataSetName;$/;"	m	class:DataReader
+detectMotion	DataReader.cpp	/^int DataReader::detectMotion(int threshold) {$/;"	f	class:DataReader
+detection	DataReader.hpp	/^			int detection[BN]; \/\/ used to store the beam where a motion has been detected$/;"	m	class:DataReader
+displayLaserData	DataReader.cpp	/^int DataReader::displayLaserData(){$/;"	f	class:DataReader
+displayMotion	DataReader.cpp	/^int DataReader::displayMotion() {$/;"	f	class:DataReader
+drawPoint	DataReader.cpp	/^void DataReader::drawPoint(float x, float y, CvScalar color){$/;"	f	class:DataReader
+drawRectangle	DataReader.cpp	/^void DataReader::drawRectangle(float xl, float yl, float xr, float yr, CvScalar color){ $/;"	f	class:DataReader
+estimation	Kalman.cpp	/^void Kalman::estimation(int o) {$/;"	f	class:Kalman
+fileIndex	DataReader.hpp	/^        int fileIndex;$/;"	m	class:DataReader
+formObject	DataReader.cpp	/^int DataReader::formObject() {$/;"	f	class:DataReader
+image	DataReader.hpp	/^        IplImage* image;$/;"	m	class:DataReader
+initBackground	DataReader.cpp	/^int DataReader::initBackground(){$/;"	f	class:DataReader
+initWindow	DataReader.cpp	/^int DataReader::initWindow(){$/;"	f	class:DataReader
+k	Kalman.hpp	/^		float k;$/;"	m	class:Kalman
+main	Localization.cpp	/^int main(int argc, char* argv[]){$/;"	f
+main	TrackingObject.cpp	/^int main(int argc, char* argv[]){$/;"	f
+mean	Kalman.hpp	/^		float mean;$/;"	m	class:Kalman
+old_mean	Kalman.hpp	/^    float old_mean;$/;"	m	class:Kalman
+old_std	Kalman.hpp	/^    float old_std;$/;"	m	class:Kalman
+prediction	Kalman.cpp	/^void Kalman::prediction(int a) {$/;"	f	class:Kalman
+printLaserData	DataReader.cpp	/^int DataReader::printLaserData(){$/;"	f	class:DataReader
+printLaserData	DataReader.cpp	/^int DataReader::printLaserData(int beam){$/;"	f	class:DataReader
+printMotion	DataReader.cpp	/^int DataReader::printMotion() {$/;"	f	class:DataReader
+q	Kalman.hpp	/^		float q;$/;"	m	class:Kalman
+r	Kalman.hpp	/^		float r;$/;"	m	class:Kalman
+readData	DataReader.cpp	/^int DataReader::readData(){$/;"	f	class:DataReader
+saveCurrentImage	DataReader.cpp	/^void DataReader::saveCurrentImage(){$/;"	f	class:DataReader
+std	Kalman.hpp	/^		float std;$/;"	m	class:Kalman
+transformCoordinates	DataReader.cpp	/^void DataReader::transformCoordinates(float x, float y, float *nx, float *ny){$/;"	f	class:DataReader
+x	DataReader.hpp	/^			int x, y;$/;"	m	class:DataReader
+xmax	DataReader.hpp	/^			int xmin, xmax, ymin, ymax;$/;"	m	class:DataReader
+xmin	DataReader.hpp	/^			int xmin, xmax, ymin, ymax;$/;"	m	class:DataReader
+y	DataReader.hpp	/^			int x, y;$/;"	m	class:DataReader
+ymax	DataReader.hpp	/^			int xmin, xmax, ymin, ymax;$/;"	m	class:DataReader
+ymin	DataReader.hpp	/^			int xmin, xmax, ymin, ymax;$/;"	m	class:DataReader
+~DataReader	DataReader.cpp	/^DataReader::~DataReader(){$/;"	f	class:DataReader

@@ -6,51 +6,49 @@
 
 int main(int argc, char* argv[]){
  
-	std::string setName(argv[1]);
-	DataReader dataObj1(setName);
-	int key;
+    std::string setName(argv[1]);
+    DataReader dataObj1(setName);
+    int key;
 
-	float a = 16;
 
-	/*Window initialization*/
-	dataObj1.initWindow();
-	dataObj1.clearImage();
+    /*Window initialization*/
+    dataObj1.initWindow();
+    dataObj1.clearImage();
+    
+	 dataObj1.readData();//read the next laser data
+    dataObj1.displayLaserData();//display the current laser data on the graphical window
+  	// dataObj1.printLaserData();//display the current laser data on the graphical window
 
-	dataObj1.readData();//read the next laser data
-	dataObj1.displayLaserData();//display the current laser data on the graphical window
-	dataObj1.printLaserData();//display the current laser data on the graphical window
+    float a = 16;
+      
+	 // Initialization of Kalman Filter
+	 float init_x = 6;
+	 float init_std = 9;
+	 float init_q = 1.0;
+	 float init_r = 6.0;
+	 Kalman x(init_x, init_std, init_q, init_r);
+    std::cout << "mean(I) = " << x.mean << " std(I) = " << x.std << std::endl << std::endl;
 
-	// Initialization of Kalman Filter
-	//float init_x=0;
-	float init_x = dataObj1.dataLaserR[BN / 2];
-	float init_std=0;
-	float init_q=1;
-	float init_r=5;
-	Kalman x(init_x, init_std, init_q, init_r);
-	std::cout << "mean(I) = " << x.mean << " std(I) = " << x.std << std::endl << std::endl;
+    /*Displaying the dataset (each sliding window; each
+     frame)*/
+    while(dataObj1.readData() == NOERROR) {
+    	dataObj1.displayLaserData();//display the current laser data on the graphical window
+    	//dataObj1.printLaserData();//print the current laser data
 
-	/*Displaying the dataset (each sliding window; each
-	frame)*/
-	while(dataObj1.readData() == NOERROR) {
-		dataObj1.displayLaserData();//display the current laser data on the graphical window
-		dataObj1.printLaserData();//print the current laser data
+      // prediction phase
+      std::cout << "action = " << a << std::endl;
+      x.prediction(a);
+      std::cout << "mean(P) = " << x.mean << " std(P) = " << x.std << std::endl;
 
-		// prediction phase
-		float a = 16;
-		std::cout << "action = " << a << std::endl;
-		x.prediction(a);
-		std::cout << "mean(P) = " << x.mean << " std(P) = " << x.std << std::endl;
+      // estimation phase
+      float o = dataObj1.dataLaserX[384];
+      std::cout << "observation = " << o << std::endl;
+      x.estimation(o);
+      std::cout << "mean(E) = " << x.mean << " std(E) = " << x.std << std::endl << std::endl;
 
-		// estimation phase
-		float o = dataObj1.dataLaserR[BN / 2];
-		//float o;
-		std::cout << "observation = " << o << std::endl;
-		x.estimation(o);
-		std::cout << "mean(E) = " << x.mean << " std(E) = " << x.std << std::endl << std::endl;
-
-		/*delay*/
-		key=cvWaitKey(0);
-	}
-
-	return 0;
+      /*delay*/
+      key=cvWaitKey(0);
+    }
+    
+    return 0;
 }
