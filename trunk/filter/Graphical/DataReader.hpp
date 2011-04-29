@@ -32,7 +32,9 @@ class DataReader{
 
 			float background[BN]; // used to store the background
 			int detection[BN]; // used to store the beam where a motion has been detected
-			int xmin, xmax, ymin, ymax;
+			double xmin, xmax, ymin, ymax;
+     int last_laser;
+     int first_laser;
 			int x, y;
        
 		  /*openCV Image to show the data*/
@@ -78,7 +80,7 @@ class DataReader{
         void saveCurrentImage();
 
 			int initBackground();
-			int detectMotion(int threshold);
+			float detectMotion(int threshold);
 			int printMotion();
   			int displayMotion();
 			int formObject();
