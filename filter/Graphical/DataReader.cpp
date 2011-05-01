@@ -349,5 +349,9 @@ int DataReader::formObject() {
 
 	drawRectangle(x1,y1, x2, y2, cvScalar(2));
 
+	x=(x1+x2)/2;	
+    	y=(y1+y2)/2;
+    	std::cout<<"Center :("<<x<<","<<y<<")"<<std::endl;
+   	return y;
 
 }

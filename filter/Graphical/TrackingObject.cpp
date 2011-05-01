@@ -10,6 +10,8 @@ int main(int argc, char* argv[]){
    int key;
     
 	float a;
+	float pos1;
+	float pos2;
 
    /*Window initialization*/
    dataObj.initWindow();
@@ -31,7 +33,7 @@ int main(int argc, char* argv[]){
 	dataObj.detectMotion(threshold);
 	dataObj.printMotion();
 	dataObj.displayMotion();
-  	dataObj.formObject();
+  	pos1=dataObj.formObject();
 
 	float init_y;
 	float init_std;
@@ -52,7 +54,10 @@ int main(int argc, char* argv[]){
 		dataObj.formObject();
 
 		// prediction phase
-		float a = 16;
+		pos2=dataObj.formObject();
+		a=fabs(pos2-pos1);
+		pos1=pos2;
+		//float a = 16;
 		std::cout << "action = " << a << std::endl;
 		y.prediction(a);
 		std::cout << "mean(P) = " << y.mean << " std(P) = " << y.std << std::endl;
