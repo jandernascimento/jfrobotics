@@ -52,12 +52,13 @@ int main(int argc, char* argv[]){
 		dataObj.formObject();
 
 		// prediction phase
+		float a = 16;
 		std::cout << "action = " << a << std::endl;
 		y.prediction(a);
 		std::cout << "mean(P) = " << y.mean << " std(P) = " << y.std << std::endl;
 
 		// estimation phase
-		float o;
+		float o = dataObj.dataLaserR[BN / 2];
 		std::cout << "observation = " << o << std::endl;
 		y.estimation(o);
 		std::cout << "mean(E) = " << y.mean << " std(E) = " << y.std << std::endl << std::endl;
