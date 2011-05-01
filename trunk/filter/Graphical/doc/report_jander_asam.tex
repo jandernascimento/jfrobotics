@@ -46,7 +46,7 @@ These are just a few examples. With observation over the environment is possible
 
 Tracking is thought to be an inference problem, due to the fact that we need to compile all measurements to estimate the object state. There exist basically two branches of models: linear and not linear dynamics.
 
-Not linear is quite hard to work with and in general looks impossiible to predict, but there are some trivial solutions for the  linear model, for instance applying Kalman filter.
+Not linear is quite hard to work with and in general looks impossible to predict, but there are some trivial solutions for the  linear model, for instance applying Kalman filter.
 
 The Kalman filter is applied in three steps: prediction, kalman gain and estimation(correction). The canonical equations can be seen below.
 
@@ -76,14 +76,14 @@ The Kalman filter is applied in three steps: prediction, kalman gain and estimat
 
 \subsection{Motion detection}
 
-For motion detection, base on a collection of frames at each timestep, is possible to analyse the current frame based on the previous measurement using a \emph{background} image. Background image is a template in which will be contrasted with the obtained measurement so we can inference some caracterics in the environment, for instance: detect motion.
+For motion detection, base on a collection of frames at each time-step, is possible to analyze the current frame based on the previous measurement using a \emph{background} image. Background image is a template in which will be contrasted with the obtained measurement so we can inference some characteristics in the environment, for instance: detect motion.
 
-Background, also known as inter-image difference, consist in compare the frame to be analised with a background frame, according to the difference obtained form these two image we can infere motion in the analysed frame. 
+Background, also known as inter-image difference, consist in compare the frame to be analyzed with a background frame, according to the difference obtained form these two image we can infer motion in the analyzed frame. 
 
 The background image can be created using the very first sensor measure. So to detect the motion we can state the Equation \ref{equa:detection}, but this is a naive approach and have a lot of drawbacks, for instance:
 \begin{itemize}
 \item background image can become obsolete in case of any change in the environment
-\item the contrast between the background and current frame can give a very innacurate information about the moving object, Figure \ref{subtraction_result}.
+\item the contrast between the background and current frame can give a very inaccurate information about the moving object, Figure \ref{subtraction_result}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -103,7 +103,7 @@ motion(I_{frame})=\parallel I_{background}-I_{frame} \parallel
 \label{equa:detection}
 \end{equation}
 
-if the result of the Equation \ref{equa:detection} is bigger than a \emph{thrashold} is consider as a motion. This \emph{thrashold} depends on the sensor confidence, and can varying from one model to other. 
+if the result of the Equation \ref{equa:detection} is bigger than a \emph{threshold} is consider as a motion. This \emph{threshold} depends on the sensor confidence, and can varying from one model to other. 
 
 \subsection{Kalman for DATMO}
 %explain how the kalman is used for tracking
@@ -122,7 +122,7 @@ Considering the current model, is not possible to apply Kalman Filter since the 
 
 \subsubsection{Motion detection}
 
-The motion detection is performing checking up on the difference between two sensor measures, if this difference is bigger than a \emph{thrashold} we consider as a motion.
+The motion detection is performing checking up on the difference between two sensor measures, if this difference is bigger than a \emph{threshold} we consider as a motion.
 
 But this approaches still give us some noisy in the sensor reading, the main problems faced with the datasets were:
 \begin{itemize}
@@ -134,7 +134,7 @@ To solve the problem of motion detection, we filtered the previous information u
 
 Applying the Laser Cluster solved part of the problem, but in dataset \emph{Data2} for instance, there appear clustered lasers but that does not represent the actual moving object. The object was in the middle of the room and a sensor next to the object detected a false-motion in the back of the room.
 
-The solution what is called false cluster we can consider the distance between the elements of a cluster, if this distance is larger than a pre established value we can discart the measure at the longer distance. This implies most of the time for us, to know the size of the analysed object, but this is not always possible.
+The solution what is called false cluster we can consider the distance between the elements of a cluster, if this distance is larger than a pre established value we can discard the measure at the longer distance. This implies most of the time for us, to know the size of the analyzed object, but this is not always possible.
 
 \subsubsection{Prediction}
 
