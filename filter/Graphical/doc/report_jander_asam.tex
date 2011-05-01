@@ -22,12 +22,23 @@
 
 \section{Localization of a mobile robot}
 
-\subsection{Estimating with Kalman filter}
+\subsection{Kalman filter}
 %Explain how kalman works and why it can be applied in the case of the robot
-
+Kalman filter is an implementation of Bayesian Filters, where the space state is represented by gaussian distribution, which makes it easier for the implementation on the computer(we avoid calculating integrals, when we use ``original'' Bayseian filter). Of course there's a drawback of this method, when the system is non-linear like in the case of \textit{changemotion}\footnote{more on this in the following section}.
+\subsubsection{Problem of localization using Kalman filter}
+The process of localization of the mobile robot with Kalman filter is divided into 3 parts:
+\begin{enumerate}
+\item Prediction
+\item Estimation
+\item Determination
+\end{enumerate}
+During this lab session we're dealing with \textit{1D} motion of the robot, hence the state transition model $\mathbf{P_t}$ is a scalar and is equal to 1, as well as the control input model $\mathbf{B_t}$. Which greatly simplifies the implementation of the Kalman filter for this case. The actual implementation is straightforward and can be found in the source code.
 \subsection{Testing data sets}
 %run in couple data sets and explain what is going on
-\emph{Q} and \emph{R} are respectively related with the confidence in the action and in the observation. This means that the values will converge to real values faster.
+\subsubsection{Belief in our actions and sensor model}
+\emph{Q} and \emph{R} are respectively related with the confidence in the action and in the observation. The influence of these coefficients maybe important depending on their value. The \textit{Q} parameter changes the value of predicting the \textit{covariance} of our \textit{expected} state i.e. the dispersion or the error range. As \textit{Q} grows so is our dispersion i.e. the noise of the \textit{action} is too big to be neglected, hence our \textit{precision} diminishes. The \textit{R} coefficient is inversely proportional to the Kalman gain \textit{K} i.e. as \textit{R} grows, \textit{K} gets lower. The Kalman gain is used to \textit{affine} our \textit{final} i.e. \textit{estimated} value based on the observation. If \textit{R} is too big i.e. the noise of the sensor model is too big to be neglected, the \textit{final} estimated value is less affected by the current observation. Otherwise our sensor model is almost perfect, thus its contribution to the final value is important.
+\subsubsection{The limit of the Kalman filter}
+As we mentioned earlier Kalman filter is a good implementation of Bayesian filters for \textit{linear} systems, or as we might call it in the \textit{perfect case} example - a \textit{unidirectional} motion. In the \textit{perfect case} example robot is only moving in one direction, and if we express \textit{displacement} of the robot as the function of time, the equation has only one root i.e. at any given time $t$, the position of robot $p_t$ is unique. Which is not the case in the \textit{changemotion} example, where robot moves several units to the right and then goes back towards its starting location. Now, if we plot the graph of robot's displacement we may behold that for any given position $p_t$ there might be several \textit{roots} i.e. times $t_i$ and $t_j$ s.t. $t_i \neq t_j$. And that's where Kalman filter fails to provide adequate results. Nevertheless it works very good for dynamic linear systems.
 
 \section{Detection and Tracking of a Moving Object}
 
