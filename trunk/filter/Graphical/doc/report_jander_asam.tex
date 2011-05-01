@@ -1,0 +1,144 @@
+\documentclass{article}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Robotics - Localization and Prediction}
+
+\author{Asan Agibetov (\texttt{plumdeq@gmail.com}), 
+\and Jander Nascimento (\texttt{jbotnascimento@gmail.com}).
+\and Universite Joseph Fourier}
+
+\maketitle
+
+\section{Localization of a mobile robot}
+
+\subsection{Estimating with Kalman filter}
+%Explain how kalman works and why it can be applied in the case of the robot
+
+\subsection{Testing data sets}
+%run in couple data sets and explain what is going on
+\emph{Q} and \emph{R} are respectively related with the confidence in the action and in the observation. This means that the values will converge to real values faster.
+
+\section{Detection and Tracking of a Moving Object}
+
+\subsection{Tracking}
+
+The tracking means generate an inference about the motion of an object given a sequence of observations in time $t$. This tool has a variety of applications, like:
+
+\begin{itemize}
+\item Motion capture
+\item Recognition of motion
+\item Surveillance
+\item Targeting
+\end{itemize}
+
+These are just a few examples. With observation over the environment is possible to extract theses informations but not all data collected are relevant. 
+
+Tracking is thought to be an inference problem, due to the fact that we need to compile all measurements to estimate the object state. There exist basically two branches of models: linear and not linear dynamics.
+
+Not linear is quite hard to work with and in general looks impossiible to predict, but there are some trivial solutions for the  linear model, for instance applying Kalman filter.
+
+The Kalman filter is applied in three steps: prediction, kalman gain and estimation(correction). The canonical equations can be seen below.
+
+\begin{equation} \label{eq:prediction}
+  Prediction\;:\; 
+  \left\{ 
+    \begin{array}{ c }
+      \mu_{t+1} = \mu_t + A_t \\
+      \Sigma_{t+1} = \Sigma_t + Q_t
+    \end{array}
+  \right.
+\end{equation}
+
+\begin{equation} \label{eq:kalman_gain}
+  Kalman\;gain\;:\; K_t = \frac{\Sigma_{t+1}}{\Sigma_{t+1} + R_t}
+\end{equation}
+
+\begin{equation} \label{eq:estimation}
+  Estimation\;:\; 
+  \left\{ 
+    \begin{array}{ c }
+      \mu_{t+1} = \mu^{-}_{t+1} + K_t(O_t - \mu^{-}_{t+1}) \\
+      \Sigma_{t+1} = (1 - K_t)\Sigma^{-}_{t+1}
+    \end{array}
+  \right.
+\end{equation}
+
+\subsection{Motion detection}
+
+For motion detection, base on a collection of frames at each timestep, is possible to analyse the current frame based on the previous measurement using a \emph{background} image. Background image is a template in which will be contrasted with the obtained measurement so we can inference some caracterics in the environment, for instance: detect motion.
+
+Background, also known as inter-image difference, consist in compare the frame to be analised with a background frame, according to the difference obtained form these two image we can infere motion in the analysed frame. 
+
+The background image can be created using the very first sensor measure. So to detect the motion we can state the Equation \ref{equa:detection}, but this is a naive approach and have a lot of drawbacks, for instance:
+\begin{itemize}
+\item background image can become obsolete in case of any change in the environment
+\item the contrast between the background and current frame can give a very innacurate information about the moving object, Figure \ref{subtraction_result}.
+\end{itemize}
+
+\begin{figure}[H]
+\includegraphics[scale=0.6]{image/subtraction.png}
+\caption{Example: Given frame and background}
+\label{fig:subtraction}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.6]{image/subtraction_result.png}
+\caption{Result of a subtraction \ref{fig:subtraction} for detecting the motion}
+\label{fig:subtraction_result}
+\end{figure}
+
+\begin{equation}
+motion(I_{frame})=\parallel I_{background}-I_{frame} \parallel
+\label{equa:detection}
+\end{equation}
+
+if the result of the Equation \ref{equa:detection} is bigger than a \emph{thrashold} is consider as a motion. This \emph{thrashold} depends on the sensor confidence, and can varying from one model to other. 
+
+\subsection{Kalman for DATMO}
+%explain how the kalman is used for tracking
+The Detection and Tracking of Moving Objects(DATMO) can be done using statistical methods. After performing and action and having an observation of the sensor it is possible to predict the next position by using Kalman Filter. 
+
+Kalman Filter has some limitations:
+\begin{itemize}
+\item Environment to be analyzed must be discrete
+\item The motion of the object must be a linear system
+\end{itemize}
+
+Considering the current model, is not possible to apply Kalman Filter since the model has 2 degrees of freedom, but is possible to simplify it considering that the robot is moving in only one axis (1D motion), this conversion is done by considering only the sensor that is pointing toward the motion of the robot.
+
+\subsection{Training datasets}
+%run in couple data sets and explain what is going on
+
+\subsubsection{Motion detection}
+
+The motion detection is performing checking up on the difference between two sensor measures, if this difference is bigger than a \emph{thrashold} we consider as a motion.
+
+But this approaches still give us some noisy in the sensor reading, the main problems faced with the datasets were:
+\begin{itemize}
+\item Motion detected where there was no motion
+\item Grouped measures within large distances
+\end{itemize}
+
+To solve the problem of motion detection, we filtered the previous information using the technique called Laser Cluster, in which consist of group sensor measures, and if this measure is larger than a certain parameter we can consider that as a single object. 
+
+Applying the Laser Cluster solved part of the problem, but in dataset \emph{Data2} for instance, there appear clustered lasers but that does not represent the actual moving object. The object was in the middle of the room and a sensor next to the object detected a false-motion in the back of the room.
+
+The solution what is called false cluster we can consider the distance between the elements of a cluster, if this distance is larger than a pre established value we can discart the measure at the longer distance. This implies most of the time for us, to know the size of the analysed object, but this is not always possible.
+
+\subsubsection{Prediction}
+
+
+\end{document}
+
+
