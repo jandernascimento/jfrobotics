@@ -10,9 +10,4 @@ class Kalman{
 
 		void prediction(int a);
 		void estimation(int o);
-    
-    private:
-    float old_mean;
-    float old_std;
-
 };
