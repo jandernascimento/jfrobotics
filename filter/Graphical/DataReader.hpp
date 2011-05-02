@@ -85,5 +85,9 @@ class DataReader{
 
 		void filterMotion1();
 		void filterMotion2();
+		
+		// Accessors for "x" and "y" centroids, used as our observation along x and y axis
+		int getXCentroid() { return x; }
+		int getYCentroid() { return y; }
 
 };
