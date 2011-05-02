@@ -215,7 +215,7 @@ void DataReader::filterMotion2(){
 				if(cluster_size>largest_size){ 
 
 
-					printf("cluster of %i, from %i to %i\n",cluster_size,first,last);
+                                        //printf("cluster of %i, from %i to %i\n",cluster_size,first,last);
 
 					largest_size=cluster_size;
 					xmin=dataLaserX[first];
@@ -229,8 +229,7 @@ void DataReader::filterMotion2(){
 				first=i;
 			}
 			count++;
-			last=i;
-			printf("counting %i\n",count);
+                        last=i;
 		}
 
 
@@ -341,10 +340,12 @@ int DataReader::formObject() {
 
 	float x1,y1,x2,y2;
 
-	printf("Boundbox p1(%f,%f) p2(%f,%f)\n",xmin,ymin,xmax,ymax);
-        printf("Primaty Boundbox CV coordinates p1(%f,%f) p2(%f,%f)\n",x1,y1,x2,y2);
+        printf("Boundbox p1(%d,%d) p2(%d,%d)\n",xmin,ymin,xmax,ymax);
+
 	transformCoordinates(xmin,ymin,&x1,&y1);
         transformCoordinates(xmax,ymax,&x2,&y2);
+
+         printf("Primaty Boundbox CV coordinates p1(%d,%d) p2(%d,%d)\n",x1,y1,x2,y2);
 
         int boundboxsize=30;\
 
@@ -352,7 +353,7 @@ int DataReader::formObject() {
     	y=(y1+y2)/2;
     	std::cout<<"Center :("<<x<<","<<y<<")"<<std::endl;
         if((xmin+ymin)!=0)
-        drawRectangle(x-boundboxsize,y-boundboxsize, x+boundboxsize, y+boundboxsize, cvScalar(2));
+            drawRectangle(x-boundboxsize,y-boundboxsize, x+boundboxsize, y+boundboxsize, cvScalar(2));
 
    	return y;
 

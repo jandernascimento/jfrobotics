@@ -157,7 +157,7 @@ Applying the Laser Cluster solved part of the problem, but in dataset \emph{Data
 
 \begin{figure}[H]
 \includegraphics[scale=0.4]{image/boundbox02}
-\caption{Faulty boundbox detection}
+\caption{Boundbox with failure}
 \label{fig:boundbox02}
 \end{figure}
 
@@ -166,12 +166,13 @@ The solution what is called false cluster we can consider the distance between t
 
 \begin{figure}[H]
 \includegraphics[scale=0.4]{image/boundbox03}
-\caption{Correction by using distance between the beans activated in 2D space}
+\caption{Correction using distance between the beans}
 \label{fig:boundbox03}
 \end{figure}
 
 
-As we can see in the output below, the prediction error varies between 2 to 5. This informations was obtained from the DataSet1p
+As we can see in the output below, the prediction error varies between 2 to 5. This informations was obtained from the DataSet1p, so it work quite well in this sample.
+
 \begin{lstlisting}
 mean(E) = 345 std(E) = 1.36633e-38
 mean(P) = 350 std(P) = 4.00057e-34
