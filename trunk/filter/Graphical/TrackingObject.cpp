@@ -72,7 +72,7 @@ int main(int argc, char* argv[]){
         	//dataObj.drawRectangle(10, 10, 20, 20, cvScalar(2));
 
 		/*delay*/
-		key=cvWaitKey(0);
+                key=cvWaitKey(20);
 	}
     
      return 0;
