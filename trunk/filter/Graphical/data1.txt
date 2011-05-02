@@ -1,0 +1,292 @@
+mean(I) = 3.99675e-34 std(I) = -1.63981
+mean(P) = 5 std(P) = -1.63981
+observation = 345.5
+mean(E) = 345 std(E) = -0
+mean(P) = 350 std(P) = 7.71513e-39
+observation = 345
+mean(E) = 347.5 std(E) = 3.85774e-39
+mean(P) = 354.5 std(P) = 1.15729e-38
+observation = 345.5
+mean(E) = 348.8 std(E) = 4.62936e-39
+mean(P) = 349.8 std(P) = 1.23445e-38
+observation = 344.6
+mean(E) = 346.231 std(E) = 4.74809e-39
+mean(P) = 346.231 std(P) = 1.24632e-38
+observation = 345.3
+mean(E) = 345.471 std(E) = 4.76555e-39
+mean(P) = 346.471 std(P) = 1.24807e-38
+observation = 344.3
+mean(E) = 344.944 std(E) = 4.7681e-39
+mean(P) = 345.944 std(P) = 1.24832e-38
+observation = 344.8
+mean(E) = 344.743 std(E) = 4.76847e-39
+mean(P) = 346.743 std(P) = 1.24836e-38
+observation = 345.8
+mean(E) = 345.666 std(E) = 4.76852e-39
+mean(P) = 346.666 std(P) = 1.24837e-38
+observation = 345.5
+mean(E) = 345.636 std(E) = 4.76853e-39
+mean(P) = 347.636 std(P) = 1.24837e-38
+observation = 344.9
+mean(E) = 345.389 std(E) = 4.76853e-39
+mean(P) = 346.389 std(P) = 1.24837e-38
+observation = 344.4
+mean(E) = 344.913 std(E) = 4.76853e-39
+mean(P) = 347.913 std(P) = 1.24837e-38
+observation = 344.7
+mean(E) = 345.495 std(E) = 4.76853e-39
+mean(P) = 346.495 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 345.571 std(E) = 4.76853e-39
+mean(P) = 349.571 std(P) = 1.24837e-38
+observation = 344.1
+mean(E) = 346.128 std(E) = 4.76853e-39
+mean(P) = 348.128 std(P) = 1.24837e-38
+observation = 344.5
+mean(E) = 345.577 std(E) = 4.76853e-39
+mean(P) = 353.577 std(P) = 1.24837e-38
+observation = 345.6
+mean(E) = 348.276 std(E) = 4.76853e-39
+mean(P) = 352.276 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 347.779 std(E) = 4.76853e-39
+mean(P) = 354.779 std(P) = 1.24837e-38
+observation = 344.3
+mean(E) = 348.118 std(E) = 4.76853e-39
+mean(P) = 355.118 std(P) = 1.24837e-38
+observation = 344.8
+mean(E) = 348.247 std(E) = 4.76853e-39
+mean(P) = 353.247 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 348.15 std(E) = 4.76853e-39
+mean(P) = 352.15 std(P) = 1.24837e-38
+observation = 344.7
+mean(E) = 347.113 std(E) = 4.76853e-39
+mean(P) = 352.113 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 347.099 std(E) = 4.76853e-39
+mean(P) = 351.099 std(P) = 1.24837e-38
+observation = 345.8
+mean(E) = 347.33 std(E) = 4.76853e-39
+mean(P) = 351.33 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 346.8 std(E) = 4.76853e-39
+mean(P) = 351.8 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 346.979 std(E) = 4.76853e-39
+mean(P) = 353.979 std(P) = 1.24837e-38
+observation = 344.1
+mean(E) = 347.812 std(E) = 4.76853e-39
+mean(P) = 357.812 std(P) = 1.24837e-38
+observation = 345.1
+mean(E) = 349.894 std(E) = 4.76853e-39
+mean(P) = 353.894 std(P) = 1.24837e-38
+observation = 345.1
+mean(E) = 348.397 std(E) = 4.76853e-39
+mean(P) = 355.397 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 348.354 std(E) = 4.76853e-39
+mean(P) = 352.354 std(P) = 1.24837e-38
+observation = 345.4
+mean(E) = 347.809 std(E) = 4.76853e-39
+mean(P) = 351.809 std(P) = 1.24837e-38
+observation = 344.9
+mean(E) = 346.983 std(E) = 4.76853e-39
+mean(P) = 350.983 std(P) = 1.24837e-38
+observation = 345.1
+mean(E) = 347.285 std(E) = 4.76853e-39
+mean(P) = 354.285 std(P) = 1.24837e-38
+observation = 344.7
+mean(E) = 347.929 std(E) = 4.76853e-39
+mean(P) = 353.929 std(P) = 1.24837e-38
+observation = 344.7
+mean(E) = 347.793 std(E) = 4.76853e-39
+mean(P) = 348.793 std(P) = 1.24837e-38
+observation = 344.4
+mean(E) = 345.831 std(E) = 4.76853e-39
+mean(P) = 356.831 std(P) = 1.24837e-38
+observation = 343.6
+mean(E) = 348.283 std(E) = 4.76853e-39
+mean(P) = 351.283 std(P) = 1.24837e-38
+observation = 344.1
+mean(E) = 346.782 std(E) = 4.76853e-39
+mean(P) = 353.782 std(P) = 1.24837e-38
+observation = 343.8
+mean(E) = 347.119 std(E) = 4.76853e-39
+mean(P) = 351.119 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 346.719 std(E) = 4.76853e-39
+mean(P) = 350.719 std(P) = 1.24837e-38
+observation = 344.3
+mean(E) = 346.567 std(E) = 4.76853e-39
+mean(P) = 349.567 std(P) = 1.24837e-38
+observation = 344.7
+mean(E) = 346.126 std(E) = 4.76853e-39
+mean(P) = 350.126 std(P) = 1.24837e-38
+observation = 345.3
+mean(E) = 346.958 std(E) = 4.76853e-39
+mean(P) = 353.958 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 348.422 std(E) = 4.76853e-39
+mean(P) = 353.422 std(P) = 1.24837e-38
+observation = 346
+mean(E) = 348.835 std(E) = 4.76853e-39
+mean(P) = 354.835 std(P) = 1.24837e-38
+observation = 344.5
+mean(E) = 348.139 std(E) = 4.76853e-39
+mean(P) = 356.139 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 349.255 std(E) = 4.76853e-39
+mean(P) = 352.255 std(P) = 1.24837e-38
+observation = 345
+mean(E) = 347.771 std(E) = 4.76853e-39
+mean(P) = 350.771 std(P) = 1.24837e-38
+observation = 345.4
+mean(E) = 347.204 std(E) = 4.76853e-39
+mean(P) = 351.204 std(P) = 1.24837e-38
+observation = 345.5
+mean(E) = 347.37 std(E) = 4.76853e-39
+mean(P) = 350.37 std(P) = 1.24837e-38
+observation = 344.4
+mean(E) = 346.433 std(E) = 4.76853e-39
+mean(P) = 349.433 std(P) = 1.24837e-38
+observation = 344.5
+mean(E) = 346.075 std(E) = 4.76853e-39
+mean(P) = 352.075 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 347.085 std(E) = 4.76853e-39
+mean(P) = 353.085 std(P) = 1.24837e-38
+observation = 345.1
+mean(E) = 348.088 std(E) = 4.76853e-39
+mean(P) = 361.088 std(P) = 1.24837e-38
+observation = 344.3
+mean(E) = 350.527 std(E) = 4.76853e-39
+mean(P) = 352.527 std(P) = 1.24837e-38
+observation = 129.6
+mean(E) = 214.383 std(E) = 4.76853e-39
+mean(P) = 216.383 std(P) = 1.24837e-38
+observation = 126.2
+mean(E) = 160.525 std(E) = 4.76853e-39
+mean(P) = 161.525 std(P) = 1.24837e-38
+observation = 115.9
+mean(E) = 132.772 std(E) = 4.76853e-39
+mean(P) = 134.772 std(P) = 1.24837e-38
+observation = 116.3
+mean(E) = 123.17 std(E) = 4.76853e-39
+mean(P) = 131.17 std(P) = 1.24837e-38
+observation = 117.3
+mean(E) = 122.413 std(E) = 4.76853e-39
+mean(P) = 123.413 std(P) = 1.24837e-38
+observation = 126.7
+mean(E) = 125.012 std(E) = 4.76853e-39
+mean(P) = 133.012 std(P) = 1.24837e-38
+observation = 131.1
+mean(E) = 131.768 std(E) = 4.76853e-39
+mean(P) = 139.768 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 266.605 std(E) = 4.76853e-39
+mean(P) = 270.605 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 316.583 std(E) = 4.76853e-39
+mean(P) = 318.583 std(P) = 1.24837e-38
+observation = 344.5
+mean(E) = 334.291 std(E) = 4.76853e-39
+mean(P) = 339.291 std(P) = 1.24837e-38
+observation = 345.5
+mean(E) = 342.819 std(E) = 4.76853e-39
+mean(P) = 345.819 std(P) = 1.24837e-38
+observation = 344.3
+mean(E) = 344.695 std(E) = 4.76853e-39
+mean(P) = 348.695 std(P) = 1.24837e-38
+observation = 345.6
+mean(E) = 346.411 std(E) = 4.76853e-39
+mean(P) = 348.411 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 346.303 std(E) = 4.76853e-39
+mean(P) = 349.303 std(P) = 1.24837e-38
+observation = 345.9
+mean(E) = 346.644 std(E) = 4.76853e-39
+mean(P) = 349.644 std(P) = 1.24837e-38
+observation = 346.1
+mean(E) = 347.392 std(E) = 4.76853e-39
+mean(P) = 349.392 std(P) = 1.24837e-38
+observation = 345.6
+mean(E) = 346.678 std(E) = 4.76853e-39
+mean(P) = 350.678 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 347.169 std(E) = 4.76853e-39
+mean(P) = 350.169 std(P) = 1.24837e-38
+observation = 345.6
+mean(E) = 346.974 std(E) = 4.76853e-39
+mean(P) = 349.974 std(P) = 1.24837e-38
+observation = 346
+mean(E) = 347.518 std(E) = 4.76853e-39
+mean(P) = 350.518 std(P) = 1.24837e-38
+observation = 344.5
+mean(E) = 346.49 std(E) = 4.76853e-39
+mean(P) = 346.49 std(P) = 1.24837e-38
+observation = 345.3
+mean(E) = 345.569 std(E) = 4.76853e-39
+mean(P) = 347.569 std(P) = 1.24837e-38
+observation = 345.9
+mean(E) = 345.981 std(E) = 4.76853e-39
+mean(P) = 346.981 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 345.139 std(E) = 4.76853e-39
+mean(P) = 345.139 std(P) = 1.24837e-38
+observation = 344.9
+mean(E) = 344.435 std(E) = 4.76853e-39
+mean(P) = 345.435 std(P) = 1.24837e-38
+observation = 344.8
+mean(E) = 344.548 std(E) = 4.76853e-39
+mean(P) = 344.548 std(P) = 1.24837e-38
+observation = 345.1
+mean(E) = 344.827 std(E) = 4.76853e-39
+mean(P) = 349.827 std(P) = 1.24837e-38
+observation = 345.8
+mean(E) = 346.844 std(E) = 4.76853e-39
+mean(P) = 347.844 std(P) = 1.24837e-38
+observation = 344.4
+mean(E) = 345.468 std(E) = 4.76853e-39
+mean(P) = 346.468 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 345.561 std(E) = 4.76853e-39
+mean(P) = 346.561 std(P) = 1.24837e-38
+observation = 344.7
+mean(E) = 344.978 std(E) = 4.76853e-39
+mean(P) = 346.978 std(P) = 1.24837e-38
+observation = 345.5
+mean(E) = 345.756 std(E) = 4.76853e-39
+mean(P) = 345.756 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 344.671 std(E) = 4.76853e-39
+mean(P) = 346.671 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 345.638 std(E) = 4.76853e-39
+mean(P) = 353.638 std(P) = 1.24837e-38
+observation = 345.3
+mean(E) = 348.3 std(E) = 4.76853e-39
+mean(P) = 355.3 std(P) = 1.24837e-38
+observation = 344.3
+mean(E) = 348.316 std(E) = 4.76853e-39
+mean(P) = 348.316 std(P) = 1.24837e-38
+observation = 345.4
+mean(E) = 346.267 std(E) = 4.76853e-39
+mean(P) = 347.267 std(P) = 1.24837e-38
+observation = 344.6
+mean(E) = 345.248 std(E) = 4.76853e-39
+mean(P) = 345.248 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 345.095 std(E) = 4.76853e-39
+mean(P) = 351.095 std(P) = 1.24837e-38
+observation = 345.9
+mean(E) = 347.328 std(E) = 4.76853e-39
+mean(P) = 354.328 std(P) = 1.24837e-38
+observation = 345.6
+mean(E) = 348.563 std(E) = 4.76853e-39
+mean(P) = 349.563 std(P) = 1.24837e-38
+observation = 345.9
+mean(E) = 346.743 std(E) = 4.76853e-39
+mean(P) = 349.743 std(P) = 1.24837e-38
+observation = 345.2
+mean(E) = 346.812 std(E) = 4.76853e-39
