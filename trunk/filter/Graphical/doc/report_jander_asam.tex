@@ -24,7 +24,7 @@
 
 \subsection{Kalman filter}
 %Explain how kalman works and why it can be applied in the case of the robot
-Kalman filter is an implementation of Bayesian Filters, where the space state is represented by gaussian distribution, which makes it easier for the implementation on the computer(we avoid calculating integrals, when we use ``original'' Bayseian filter). Of course there's a drawback of this method, when the system is non-linear like in the case of \textit{changemotion}\footnote{more on this in the following section}.
+Kalman filter is an implementation of Bayesian Filters, where the space state is represented by Gaussian distribution, which makes it easier for the implementation on the computer(we avoid calculating integrals, when we use ``original'' Bayesian filter). Of course there's a drawback of this method, when the system is non-linear like in the case of \textit{changemotion}\footnote{more on this in the following section}.
 \subsubsection{Problem of localization using Kalman filter}
 The process of localization of the mobile robot with Kalman filter is divided into 3 parts:
 
@@ -140,7 +140,7 @@ The motion detection is performing checking up on the difference between two sen
 But this approaches still give us some noisy in the sensor reading, the main problems faced with the datasets were:
 \begin{itemize}
 \item Motion detected where there was no motion
-\item Larger boundbox than necessary
+\item Larger bound-box than necessary
 \end{itemize}
 
 A proper detected bounding box can be seen in the Figure \ref{fig:boundbox01}.
@@ -170,60 +170,32 @@ The solution what is called false cluster we can consider the distance between t
 \label{fig:boundbox03}
 \end{figure}
 
-\subsection{Interpreting the output of the Kalman filter}
-\subsubsection{Assumptions}
-As we stated above Kalman filter works when the degree of freedom is 1 i.e. in a 1D model, that's why in this case we \textit{predict}, \textit{observe} and \textit{estimate} the position $p_y$ of the robot along \textit{y}-access. We assume that the noise related to \textit{actuators} is not very big i.e. $q = 1$, whereas the noise of the sensor model is quiet important and in our example $r = 5$. We initialize our \textit{init\_mean} as $0$ and \textit{standard deviation} as $0.01$. The \textit{observation} value is a \textit{y}-centroid of the bounding box.
 
-\subsubsection{Output}
-As we can see in the output below, the estimated value tends to the \textit{observed} value(\textit{y centroid} of the bounding box) and stabilizes quick enough, producing good results. The output was done on the \textit{/DATMO/Data1p/} dataset.
+As we can see in the output below, the prediction error varies between 2 to 5. This informations was obtained from the DataSet1p, so it work quite well in this sample.
 
 \begin{lstlisting}
-mean(I) = 0 std(I) = 0.01
-
-action = 48
-mean(P) = 48 std(P) = 1.01
-observation = 361
-mean(E) = 100.601 std(E) = 0.840266
-
-action = 6
-mean(P) = 106.601 std(P) = 1.84027
-observation = 367
-mean(E) = 176.657 std(E) = 1.34517
-
-action = 5
-mean(P) = 181.657 std(P) = 2.34517
-observation = 372
-mean(E) = 242.43 std(E) = 1.5964
-
-action = 5
-mean(P) = 247.43 std(P) = 2.5964
-observation = 377
-mean(E) = 291.716 std(E) = 1.70897
-
-action = 8
-mean(P) = 299.716 std(P) = 2.70897
-observation = 385
-mean(E) = 329.685 std(E) = 1.75702
-
-action = 8
-mean(P) = 337.685 std(P) = 2.75702
-observation = 393
-mean(E) = 357.345 std(E) = 1.77711
-
-action = 7
-mean(P) = 364.345 std(P) = 2.77711
-observation = 400
-mean(E) = 377.077 std(E) = 1.78544
-
-action = 6
-mean(P) = 383.077 std(P) = 2.78544
-observation = 406
-mean(E) = 391.278 std(E) = 1.78888
-
-action = 4
-mean(P) = 395.278 std(P) = 2.78888
-observation = 410
-mean(E) = 400.55 std(E) = 1.79029
+mean(E) = 345 std(E) = 1.36633e-38
+mean(P) = 350 std(P) = 4.00057e-34
+observation = 344.8
+mean(E) = 344 std(E) = 1.36633e-38
+mean(P) = 350 std(P) = 4.00057e-34
+observation = 345.3
+mean(E) = 345 std(E) = 1.36633e-38
+mean(P) = 352 std(P) = 4.00057e-34
+observation = 344.4
+mean(E) = 344 std(E) = 1.36633e-38
+mean(P) = 349 std(P) = 4.00057e-34
+observation = 345.2
+mean(E) = 345 std(E) = 1.36633e-38
+mean(P) = 350 std(P) = 4.00057e-34
+observation = 345.4
+mean(E) = 345 std(E) = 1.36633e-38
+mean(P) = 349 std(P) = 4.00057e-34
+observation = 344.9
+mean(E) = 344 std(E) = 1.36633e-38
+mean(P) = 349 std(P) = 4.00057e-34
+observation = 344.9
+mean(E) = 344 std(E) = 1.36633e-38
 \end{lstlisting}
 
 \section{Where to find the source}
@@ -235,6 +207,10 @@ To download the code run the following command:
 
 But is always possible to check the code straight from the web browser:
 \texttt{https://code.google.com/p/jfrobotics/source/browse/}
+
+\section{Appendix}
+
+Between the two branches: Text and Graphical. Our team chose the \textbf{Graphical} for the visual feedback.
 
 \end{document}
 
