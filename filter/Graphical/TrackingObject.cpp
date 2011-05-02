@@ -56,8 +56,7 @@ int main(int argc, char* argv[]){
 		// prediction phase
 		pos2=dataObj.formObject();
 		a=fabs(pos2-pos1);
-		pos1=pos2;
-		//float a = 16;
+                pos1=pos2;
 		std::cout << "action = " << a << std::endl;
 		y.prediction(a);
 		std::cout << "mean(P) = " << y.mean << " std(P) = " << y.std << std::endl;
@@ -68,11 +67,14 @@ int main(int argc, char* argv[]){
 		y.estimation(o);
 		std::cout << "mean(E) = " << y.mean << " std(E) = " << y.std << std::endl << std::endl;
 
-	
-        	//dataObj.drawRectangle(10, 10, 20, 20, cvScalar(2));
+                 std::cout << "Impossible to track" <<pos2 << std::endl;
 
+                if(pos2==270){
+                   dataObj.drawRectangle(10, 10, 20, 20, cvScalar(2));
+                }
+	
 		/*delay*/
-                key=cvWaitKey(20);
+                key=cvWaitKey(30);
 	}
     
      return 0;
