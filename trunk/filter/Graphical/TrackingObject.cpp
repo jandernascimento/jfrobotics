@@ -31,25 +31,25 @@ int main(int argc, char* argv[]){
 	//detection of motion
 	int threshold=5;
 	dataObj.detectMotion(threshold);
-	dataObj.printMotion();
+	//dataObj.printMotion();
 	dataObj.displayMotion();
   	pos1=dataObj.formObject();
 
-	float init_y;
-	float init_std;
-	float init_q;
-	float init_r;
+	float init_y = 0.0;
+	float init_std = 0.01;
+	float init_q = 1;
+	float init_r = 5;
 	Kalman y(init_y, init_std, init_q, init_r);
    std::cout << "mean(I) = " << y.mean << " std(I) = " << y.std << std::endl << std::endl;
 
    /*Displaying the dataset (each sliding window; each
      frame)*/
 	while(dataObj.readData() == NOERROR) {
-		dataObj.printLaserData();//display the current laser data on the graphical window
+		//dataObj.printLaserData();//display the current laser data on the graphical window
 		dataObj.displayLaserData();//display the current laser data on the graphical window
 
 		dataObj.detectMotion(threshold);
-		dataObj.printMotion();
+		//dataObj.printMotion();
   		dataObj.displayMotion();
 		dataObj.formObject();
 
@@ -62,7 +62,8 @@ int main(int argc, char* argv[]){
 		std::cout << "mean(P) = " << y.mean << " std(P) = " << y.std << std::endl;
 
 		// estimation phase
-		float o = dataObj.dataLaserR[BN / 2];
+		//float o = dataObj.dataLaserR[BN / 2];
+		float o = dataObj.getYCentroid();
 		std::cout << "observation = " << o << std::endl;
 		y.estimation(o);
 		std::cout << "mean(E) = " << y.mean << " std(E) = " << y.std << std::endl << std::endl;

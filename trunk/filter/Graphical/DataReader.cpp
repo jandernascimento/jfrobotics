@@ -339,18 +339,18 @@ int DataReader::formObject() {
 
 	float x1,y1,x2,y2;
 
-        printf("Boundbox p1(%d,%d) p2(%d,%d)\n",xmin,ymin,xmax,ymax);
+        //printf("Boundbox p1(%d,%d) p2(%d,%d)\n",xmin,ymin,xmax,ymax);
 
 	transformCoordinates(xmin,ymin,&x1,&y1);
         transformCoordinates(xmax,ymax,&x2,&y2);
 
-         printf("Primaty Boundbox CV coordinates p1(%d,%d) p2(%d,%d)\n",x1,y1,x2,y2);
+         //printf("Primaty Boundbox CV coordinates p1(%d,%d) p2(%d,%d)\n",x1,y1,x2,y2);
 
         int boundboxsize=30;\
 
 	x=(x1+x2)/2;	
     	y=(y1+y2)/2;
-    	std::cout<<"Center :("<<x<<","<<y<<")"<<std::endl;
+    	//std::cout<<"Center :("<<x<<","<<y<<")"<<std::endl;
         if((xmin+ymin)!=0)
             drawRectangle(x-boundboxsize,y-boundboxsize, x+boundboxsize, y+boundboxsize, cvScalar(2));
 
