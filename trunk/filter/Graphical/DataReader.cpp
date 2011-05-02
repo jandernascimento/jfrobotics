@@ -307,7 +307,6 @@ int DataReader::detectMotion(int threshold) {
 
 int DataReader::printMotion() {
 
-	std::cout << "printMotion" << std::endl;
 	for(int i=0; i < BN; i++)
 		if (detection[i])
 			std::cout << "beam " << i << ", r="
