@@ -1,0 +1,1 @@
+Small set of projects which simulates robots. With actions and prediction using kalman filters
